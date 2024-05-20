@@ -48,7 +48,9 @@ To get full credit for this Question you must:
 
 ## Github Repo Link
 
-[https://your-github-repo-url](https://your-github-repo-url)
+
+[https://github.com/olivianathan/Nathan_Olivia_201_A06](https://github.com/olivianathan/Nathan_Olivia_201_A06)
+
 
 :::
 
@@ -56,7 +58,7 @@ To get full credit for this Question you must:
 
 ## Screenshot/image of RStudio
 
-![](filepath.png)
+![](github setup.png)
 
 :::
 
