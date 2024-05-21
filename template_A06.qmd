@@ -2,15 +2,15 @@
 title: "Assignment 6"
 subtitle: "STAT 201"
 author: "YOUR NAME"
-
 format:
   html:
     toc: true
     embed-resources: true
-
 execute:
   message: false
   warning: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Instructions
@@ -104,7 +104,8 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 - using names
 
 ```{r}
-
+player_info[[2]][4]
+player_info$LJ$points
 ```
 
 
@@ -115,7 +116,13 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
+heights <- c(78, 81, 78, 86, 85)
 
+# Add height to each player's list
+for (i in 1:length(player_info)) {
+  player_info[[i]]$height <-heights[i]
+}
+player_info
 ```
 
 
@@ -134,7 +141,15 @@ Hint: initialize an empty list
 Note: this must still run correctly even if the values were to change or if another player were added to the list or if the player order changed.
 
 ```{r}
+points_per_game <- list()
 
+for (player_name in names(player_info)) {
+  player <- player_info[[player_name]]
+  points_per_game <- append(points_per_game, player$points / player$games_played)
+  names(points_per_game)[length(points_per_game)] <- player_name
+}
+
+points_per_game
 ```
 
 
@@ -145,6 +160,10 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
+points_per_game <- as.numeric(unlist(points_per_game))
+
+rounded_points_per_game <- round(points_per_game, digits = 2)
+rounded_points_per_game
 
 ```
 
