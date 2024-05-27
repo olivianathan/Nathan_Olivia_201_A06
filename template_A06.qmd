@@ -104,8 +104,8 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 - using names
 
 ```{r}
-player_info[[2]][4]
-player_info$LJ$points
+player_info[[2]][4] # With indexing
+player_info$LJ$points # With names
 ```
 
 
@@ -116,7 +116,7 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
-heights <- c(78, 81, 78, 86, 85)
+heights <- c(78, 81, 78, 86, 85) # List of heights
 
 # Add height to each player's list
 for (i in 1:length(player_info)) {
@@ -141,13 +141,7 @@ Hint: initialize an empty list
 Note: this must still run correctly even if the values were to change or if another player were added to the list or if the player order changed.
 
 ```{r}
-points_per_game <- list()
-
-for (player_name in names(player_info)) {
-  player <- player_info[[player_name]]
-  points_per_game <- append(points_per_game, player$points / player$games_played)
-  names(points_per_game)[length(points_per_game)] <- player_name
-}
+points_per_game <- lapply(player_info, function(x) {x$points/x$games_played})
 
 points_per_game
 ```
@@ -160,10 +154,9 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
-points_per_game <- as.numeric(unlist(points_per_game))
 
-rounded_points_per_game <- round(points_per_game, digits = 2)
-rounded_points_per_game
+r_points_per_game <- sapply(points_per_game, round, digits = 2)
+r_points_per_game
 
 ```
 
@@ -218,11 +211,7 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
-avg_temps <- list()
-for (month in 3:14) {
-  avg_temps[[month]] <- mean(max_temps[[month]])
-}
-avg_temps
+apply(max_temps[,3:14], 2, mean)
 ```
 
 
@@ -263,11 +252,11 @@ Note: This code should still run successfully even if the numbers were to change
 ```{r}
 median_temps <- apply(CO_temps[, 3:14], 1, median)
 
-max_median <- which.max(median_temps)
-year_max <- CO_temps$year[max_median]
+max_median <- which.max(median_temps) #Finding max value
+year_max <- CO_temps$year[max_median] #Finding max year
 
-min_median <- which.min(median_temps)
-year_min <- CO_temps$year[min_median]
+min_median <- which.min(median_temps) #Finding min value
+year_min <- CO_temps$year[min_median] #Finding min year
 
 paste0("The maximum median annual temperature of ", median_temps[max_median], " occured in ", year_max, " and the minimum median annual temperature of ", median_temps[min_median], " occured in ", year_min )
 ```
@@ -283,9 +272,12 @@ Run your function with 935068.
 
 ```{r}
 digit_sum <- function(n) {
-  digits <- strsplit(as.character(n), "")[[1]]
-  total <- sum(as.numeric(digits))
-  return(total)
+  last_digit <- n %% 10
+  if (n < 10){ # Base case
+    return(n)
+  } else{ # Recursive case
+    return(last_digit + digit_sum((n-last_digit)/10))
+  }
 }
 digit_sum(935068)
 ```
