@@ -1,7 +1,7 @@
 ---
 title: "Assignment 6"
 subtitle: "STAT 201"
-author: "YOUR NAME"
+author: "Olivia Nathan"
 format:
   html:
     toc: true
@@ -259,6 +259,8 @@ min_median <- which.min(median_temps) #Finding min value
 year_min <- CO_temps$year[min_median] #Finding min year
 
 paste0("The maximum median annual temperature of ", median_temps[max_median], " occured in ", year_max, " and the minimum median annual temperature of ", median_temps[min_median], " occured in ", year_min )
+
+
 ```
 
 
